@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#16a34a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PDV Light">
+  <title>Dashboard · PDV Light</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon.svg">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <header class="dash-header">
+    <div class="dash-header-left">
+      <a href="index.html" class="btn-back">← PDV</a>
+      <h1>📊 Dashboard</h1>
+    </div>
+    <div class="dash-header-right">
+      <span class="last-update" id="last-update"></span>
+      <button class="btn-refresh" id="btn-refresh" title="Atualizar">↺</button>
+    </div>
+  </header>
+
+  <!-- ── Filtros ──────────────────────────────────────────── -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Período</label>
+      <select id="filter-periodo">
+        <option value="hoje">Hoje</option>
+        <option value="ontem">Ontem</option>
+        <option value="7dias">Últimos 7 dias</option>
+        <option value="30dias">Últimos 30 dias</option>
+        <option value="mes">Este mês</option>
+        <option value="custom">Personalizado</option>
+      </select>
+    </div>
+
+    <div class="filter-group" id="custom-range" style="display:none">
+      <label>De</label>
+      <input type="date" id="filter-inicio">
+      <label>Até</label>
+      <input type="date" id="filter-fim">
+    </div>
+
+    <div class="filter-group">
+      <label>Vendedor</label>
+      <select id="filter-vendedor">
+        <option value="">Todos</option>
+        <!-- Preenchido pelo JS -->
+      </select>
+    </div>
+
+    <button class="btn-export-dash" id="btn-export-dash">📥 Exportar CSV</button>
+  </div>
+
+  <!-- ── Métricas ─────────────────────────────────────────── -->
+  <div class="metrics-grid" id="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Receita Total</div>
+      <div class="metric-value primary" id="m-total">R$ 0,00</div>
+      <div class="metric-sub" id="m-total-sub"></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Nº de Vendas</div>
+      <div class="metric-value" id="m-count">0</div>
+      <div class="metric-sub" id="m-count-sub"></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Ticket Médio</div>
+      <div class="metric-value" id="m-ticket">R$ 0,00</div>
+      <div class="metric-sub" id="m-ticket-sub"></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Itens Vendidos</div>
+      <div class="metric-value" id="m-itens">0</div>
+      <div class="metric-sub" id="m-itens-sub"></div>
+    </div>
+  </div>
+
+  <!-- ── Gráficos ─────────────────────────────────────────── -->
+  <div class="chart-section">
+    <div class="chart-tabs" id="chart-tabs">
+      <button class="chart-tab active" data-tab="periodo">📅 Período</button>
+      <button class="chart-tab" data-tab="hora">🕐 Horário</button>
+      <button class="chart-tab" data-tab="produto">📦 Produtos</button>
+      <button class="chart-tab" data-tab="vendedor">👤 Vendedores</button>
+      <button class="chart-tab" data-tab="pagamento">💳 Pagamentos</button>
+    </div>
+
+    <div class="chart-wrapper">
+      <div class="chart-empty" id="chart-empty" style="display:none">
+        <span>📊</span>
+        <p>Sem dados para o período selecionado</p>
+      </div>
+      <canvas id="chart-canvas"></canvas>
+    </div>
+  </div>
+
+  <!-- ── Tabela de Vendas ─────────────────────────────────── -->
+  <div class="table-section">
+    <div class="table-header">
+      <h2>Vendas Detalhadas</h2>
+      <span class="table-count" id="table-count"></span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="sales-table" id="sales-table">
+        <thead>
+          <tr>
+            <th>Hora</th>
+            <th>Vendedor</th>
+            <th>Cliente</th>
+            <th>Itens</th>
+            <th>Total</th>
+            <th>Pagamento</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="6" class="table-empty">Sem vendas no período</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/vendors.js"></script>
+  <script src="js/config-db.js"></script>
+  <script src="js/db.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+  </script>
+</body>
+</html>

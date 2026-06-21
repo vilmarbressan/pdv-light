@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#16a34a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PDV Light">
+  <title>Produtos · PDV Light</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon.svg">
+  <link rel="stylesheet" href="css/produtos.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="prod-header">
+    <a href="index.html" class="btn-back">← PDV</a>
+    <h1>📦 Produtos</h1>
+    <button class="btn-novo" id="btn-novo">+ Novo</button>
+  </header>
+
+  <!-- ===== FILTRO POR CATEGORIA ===== -->
+  <div class="cat-bar" id="cat-bar">
+    <button class="cat-pill active" data-cat="">Todos</button>
+    <!-- Preenchido pelo JS -->
+  </div>
+
+  <!-- ===== LISTA DE PRODUTOS ===== -->
+  <div class="prod-list" id="prod-list">
+    <!-- Preenchido pelo JS -->
+  </div>
+
+  <!-- ===== PAINEL ADD/EDIT ===== -->
+  <div class="panel-overlay" id="form-overlay">
+    <div class="panel" id="form-panel">
+
+      <div class="panel-header">
+        <h2 id="form-title">Novo Produto</h2>
+        <button class="btn-close" id="btn-close-form">✕</button>
+      </div>
+
+      <!-- Foto -->
+      <div class="foto-section">
+        <div class="foto-preview" id="foto-preview" onclick="ProdutosApp.acionarCamera()">
+          <img id="foto-img" src="images/placeholder.svg" alt="Foto do produto">
+          <div class="foto-overlay">
+            <span class="foto-icon">📷</span>
+            <span class="foto-label">Tirar foto / Galeria</span>
+          </div>
+        </div>
+        <!-- Input de arquivo escondido -->
+        <input type="file" id="foto-input" accept="image/*" capture="environment" style="display:none">
+        <div class="foto-status" id="foto-status"></div>
+      </div>
+
+      <!-- Campos -->
+      <div class="form-fields">
+        <div class="field-group">
+          <label for="f-nome">Nome do produto *</label>
+          <input type="text" id="f-nome" placeholder="Ex: Água Mineral 500ml" autocomplete="off">
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="f-preco">Preço (R$) *</label>
+            <input type="number" id="f-preco" placeholder="0,00" step="0.01" min="0" inputmode="decimal">
+          </div>
+          <div class="field-group">
+            <label for="f-ativo">Status</label>
+            <select id="f-ativo">
+              <option value="1">✅ Ativo</option>
+              <option value="0">⛔ Inativo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="f-categoria">Categoria *</label>
+          <div class="cat-input-wrap">
+            <select id="f-categoria">
+              <option value="">— Selecione ou digite nova —</option>
+              <!-- Preenchido pelo JS -->
+            </select>
+            <span class="cat-or">ou</span>
+            <input type="text" id="f-nova-cat" placeholder="Nova categoria...">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <div class="form-error" id="form-error"></div>
+        <button class="btn-salvar" id="btn-salvar">💾 Salvar Produto</button>
+        <button class="btn-deletar" id="btn-deletar" style="display:none">🗑 Excluir produto</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/produtos-db.js"></script>
+  <script src="js/produtos-app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+  </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#16a34a">
+  <title>Instalar PDV Light</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #16a34a 0%, #166534 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 16px env(safe-area-inset-bottom, 24px);
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 32px 24px 28px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+
+    .header { text-align: center; margin-bottom: 28px; }
+    .logo   { font-size: 64px; margin-bottom: 8px; }
+    h1      { font-size: 26px; font-weight: 800; color: #111827; }
+    .tagline { font-size: 15px; color: #6b7280; margin-top: 6px; }
+
+    /* QR Code */
+    .qr-section  { text-align: center; margin-bottom: 28px; }
+    .qr-label    { font-size: 13px; color: #9ca3af; margin-bottom: 10px; }
+    #qr-canvas   { border-radius: 12px; }
+    .qr-url      { font-size: 13px; color: #6b7280; margin-top: 8px; word-break: break-all; }
+
+    /* Abrir app button */
+    .btn-abrir {
+      display: block;
+      width: 100%;
+      height: 56px;
+      background: #16a34a;
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      line-height: 56px;
+      margin-bottom: 28px;
+    }
+    .btn-abrir:active { opacity: 0.9; }
+
+    /* Steps */
+    .steps-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .platform { margin-bottom: 20px; }
+    .platform-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .step-num {
+      width: 26px; height: 26px;
+      background: #16a34a;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-text { font-size: 14px; color: #374151; line-height: 1.5; }
+    .step-text strong { color: #111827; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 20px 0;
+    }
+
+    .tip {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #166534;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="header">
+      <div class="logo">🛒</div>
+      <h1>PDV Light</h1>
+      <p class="tagline">Controle de vendas no celular</p>
+    </div>
+
+    <a href="./index.html" class="btn-abrir">🛒 Abrir o App</a>
+
+    <div class="qr-section">
+      <p class="qr-label">Ou escaneie o código com a câmera do celular:</p>
+      <canvas id="qr-canvas"></canvas>
+      <p class="qr-url" id="qr-url"></p>
+    </div>
+
+    <hr class="divider">
+
+    <p class="steps-title">Como instalar no celular</p>
+
+    <div class="platform">
+      <div class="platform-name">🤖 Android</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Abra o link acima no <strong>Google Chrome</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Toque em <strong>"Instalar"</strong> quando aparecer na tela</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">O ícone do PDV Light aparece na tela inicial do celular ✅</div>
+      </div>
+    </div>
+
+    <div class="platform">
+      <div class="platform-name">🍎 iPhone</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Abra o link no <strong>Safari</strong> (não no WhatsApp)</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Toque no ícone <strong>⬆ Compartilhar</strong> na barra de baixo</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Role a lista e toque em <strong>"Adicionar à Tela de Início"</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Toque em <strong>Adicionar</strong> — o ícone aparece na tela inicial ✅</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      💡 <strong>Importante:</strong> Depois de instalar, o app funciona mesmo sem internet. Seus dados ficam salvos no celular.
+    </div>
+
+  </div>
+
+  <!-- qrcode.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    const appUrl = window.location.origin + window.location.pathname.replace('instalar.html', '') + 'index.html';
+
+    document.getElementById('qr-url').textContent = window.location.origin;
+
+    QRCode.toCanvas(
+      document.getElementById('qr-canvas'),
+      appUrl,
+      { width: 180, margin: 2, color: { dark: '#166534', light: '#ffffff' } },
+      err => { if (err) document.querySelector('.qr-section').style.display = 'none'; }
+    );
+  </script>
+</body>
+</html>

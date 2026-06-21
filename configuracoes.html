@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#16a34a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PDV Light">
+  <title>Configurações · PDV Light</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon.svg">
+  <link rel="stylesheet" href="css/configuracoes.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="cfg-header">
+    <a href="index.html" class="btn-back">← PDV</a>
+    <h1>⚙️ Configurações</h1>
+    <span></span>
+  </header>
+
+  <!-- ===== CONTEÚDO ===== -->
+  <main class="cfg-main">
+
+    <!-- ── Seção Empresa ── -->
+    <section class="cfg-section">
+      <h2 class="section-title">Empresa</h2>
+
+      <!-- Logo -->
+      <div class="logo-area">
+        <div class="logo-preview" id="logo-preview" onclick="ConfigApp.acionarLogoInput()">
+          <img id="logo-img" src="images/placeholder.svg" alt="Logo">
+          <div class="logo-overlay">
+            <span>📷</span>
+            <span>Alterar logo</span>
+          </div>
+        </div>
+        <input type="file" id="logo-input" accept="image/*" capture="environment" style="display:none">
+        <div class="logo-hint">Toque para tirar foto ou escolher da galeria<br>
+          <small>Recomendado: fundo transparente ou branco, formato quadrado</small>
+        </div>
+      </div>
+
+      <!-- Nome -->
+      <div class="field-group">
+        <label for="f-nome-empresa">Nome da empresa</label>
+        <input type="text" id="f-nome-empresa" placeholder="Ex: Cantina da Escola" autocomplete="organization">
+      </div>
+
+      <button class="btn-primary" id="btn-salvar-empresa">💾 Salvar dados da empresa</button>
+    </section>
+
+    <!-- ── Seção Vendedores ── -->
+    <section class="cfg-section">
+      <div class="section-header">
+        <h2 class="section-title">Vendedores</h2>
+        <button class="btn-add-vendor" id="btn-novo-vendedor">+ Novo</button>
+      </div>
+
+      <div id="vendedores-lista">
+        <!-- Preenchido pelo JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== PAINEL VENDEDOR ===== -->
+  <div class="panel-overlay" id="vendor-overlay">
+    <div class="panel">
+      <div class="panel-header">
+        <h2 id="vendor-form-title">Novo Vendedor</h2>
+        <button class="btn-close" id="btn-close-vendor">✕</button>
+      </div>
+
+      <div class="form-fields">
+        <div class="field-group">
+          <label for="f-v-nome">Nome completo *</label>
+          <input type="text" id="f-v-nome" placeholder="Ex: Maria Silva" autocomplete="name">
+        </div>
+
+        <div class="field-group">
+          <label for="f-v-ativo">Status</label>
+          <select id="f-v-ativo">
+            <option value="1">✅ Ativo — aparece na seleção</option>
+            <option value="0">⛔ Inativo — oculto, histórico preservado</option>
+          </select>
+        </div>
+
+        <div class="form-error" id="vendor-error"></div>
+
+        <button class="btn-primary" id="btn-salvar-vendor">💾 Salvar</button>
+        <button class="btn-danger" id="btn-deletar-vendor" style="display:none">🗑 Excluir vendedor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/vendors.js"></script>
+  <script src="js/config-db.js"></script>
+  <script src="js/config-app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+  </script>
+</body>
+</html>

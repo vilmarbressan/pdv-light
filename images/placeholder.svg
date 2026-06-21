@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#F3F4F6"/>
+  <!-- sacola -->
+  <path d="M65 80 L70 155 Q70 160 75 160 L125 160 Q130 160 130 155 L135 80 Z"
+        fill="#E5E7EB" stroke="#D1D5DB" stroke-width="2"/>
+  <!-- alça -->
+  <path d="M80 80 C80 55 120 55 120 80"
+        fill="none" stroke="#D1D5DB" stroke-width="6" stroke-linecap="round"/>
+  <!-- texto -->
+  <text x="100" y="185" text-anchor="middle"
+        font-size="12" fill="#9CA3AF" font-family="-apple-system,sans-serif">
+    Foto do produto
+  </text>
+</svg>

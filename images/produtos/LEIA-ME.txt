@@ -1,0 +1,18 @@
+COMO ADICIONAR FOTOS DOS PRODUTOS
+===================================
+
+1. Coloque as fotos dos produtos NESTA PASTA (images/produtos/)
+2. Formatos aceitos: JPG, JPEG, PNG, WebP
+3. Tamanho ideal: 400×400 pixels (quadrado)
+4. Tamanho máximo recomendado: 200KB por foto
+
+Depois de adicionar as fotos, edite o arquivo js/products.js
+e coloque o nome do arquivo no campo "imagem" de cada produto.
+
+Exemplo:
+  imagem: 'images/produtos/agua_500ml.jpg'
+
+Se um produto não tiver foto, deixe o campo vazio:
+  imagem: ''
+
+O aplicativo mostrará automaticamente o ícone padrão no lugar da foto.

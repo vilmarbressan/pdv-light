@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#16a34a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PDV Light">
+  <title>PDV Light</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="images/icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== TELA DE SELEÇÃO DE VENDEDOR ===== -->
+  <div id="vendor-screen" class="vendor-screen">
+    <div class="vendor-card">
+      <div class="vendor-logo">🛒</div>
+      <h1 class="vendor-title">PDV Light</h1>
+      <p class="vendor-subtitle">Quem está vendendo agora?</p>
+      <div id="vendor-list" class="vendor-list">
+        <!-- Preenchido pelo JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TELA PRINCIPAL DO PDV ===== -->
+  <header class="header">
+    <div class="header-left">
+      <span class="header-logo-icon" id="header-logo-icon">🛒</span>
+      <span class="logo" id="header-nome-empresa">PDV</span>
+      <span class="vendor-badge" id="vendor-badge"></span>
+    </div>
+    <div class="header-right">
+      <button class="btn-icon" id="btn-change-vendor" title="Trocar vendedor">👤</button>
+      <a href="configuracoes.html" class="btn-icon" title="Configurações">⚙️</a>
+      <a href="produtos.html" class="btn-icon" title="Cadastro de produtos">📦</a>
+      <a href="dashboard.html" class="btn-icon" title="Dashboard" target="_blank">📊</a>
+      <button class="btn-icon btn-cloud" id="btn-cloud" title="Sincronizado na nuvem" hidden>☁️</button>
+      <button class="btn-icon" id="btn-history" title="Histórico do dia">📋</button>
+    </div>
+  </header>
+
+  <div class="search-bar">
+    <input type="search" id="search" placeholder="🔍 Buscar produto por nome..." autocomplete="off" autocorrect="off">
+  </div>
+
+  <div class="categories" id="categories">
+    <!-- Preenchido pelo JS -->
+  </div>
+
+  <div class="products-grid" id="products-grid">
+    <!-- Preenchido pelo JS -->
+  </div>
+
+  <!-- Botão flutuante do carrinho -->
+  <div class="cart-fab" id="cart-fab">
+    <button class="btn-cart" id="btn-open-cart">
+      <span>🛒</span>
+      <span id="cart-count-fab">0 itens</span>
+      <span class="fab-total" id="cart-total-fab">R$ 0,00</span>
+    </button>
+  </div>
+
+  <!-- ===== PAINEL DO CARRINHO ===== -->
+  <div class="panel-overlay" id="cart-overlay">
+    <div class="panel" id="cart-panel">
+      <div class="panel-header">
+        <h2>🛒 Carrinho</h2>
+        <button class="btn-close" id="btn-close-cart">✕</button>
+      </div>
+
+      <div class="client-section">
+        <label class="section-label">Cliente (opcional)</label>
+        <input type="text" id="client-name" placeholder="Nome do cliente" autocomplete="name">
+        <input type="tel" id="client-phone" placeholder="Telefone / WhatsApp" autocomplete="tel">
+      </div>
+
+      <div class="cart-items" id="cart-items">
+        <!-- Preenchido pelo JS -->
+      </div>
+
+      <div class="payment-section">
+        <label class="section-label">Forma de pagamento</label>
+        <div class="payment-options">
+          <button class="pay-btn active" data-pay="Dinheiro">💵 Dinheiro</button>
+          <button class="pay-btn" data-pay="Pix">📱 Pix</button>
+          <button class="pay-btn" data-pay="Débito">💳 Débito</button>
+          <button class="pay-btn" data-pay="Crédito">💳 Crédito</button>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="total-display">
+          Total
+          <strong id="cart-total-panel">R$ 0,00</strong>
+        </div>
+        <button class="btn-confirm" id="btn-confirm">✅ Confirmar Venda</button>
+        <button class="btn-clear-cart" id="btn-clear-cart">🗑 Limpar carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAINEL HISTÓRICO ===== -->
+  <div class="panel-overlay" id="history-overlay">
+    <div class="panel" id="history-panel">
+      <div class="panel-header">
+        <h2>📋 Vendas do Dia</h2>
+        <button class="btn-close" id="btn-close-history">✕</button>
+      </div>
+      <div class="history-summary" id="history-summary"></div>
+      <div class="history-list" id="history-list"></div>
+      <div class="panel-footer">
+        <button class="btn-export" id="btn-export-csv">📥 Exportar CSV para Excel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TELA DE SUCESSO ===== -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h2>Venda Registrada!</h2>
+      <p id="success-info-total"></p>
+      <p id="success-info-pay"></p>
+      <p id="success-info-client"></p>
+      <button class="btn-new-sale" id="btn-new-sale">+ Nova Venda</button>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== AVISO: navegador in-app (WhatsApp / Instagram) ===== -->
+  <div class="iab-warning" id="iab-warning" hidden>
+    <div class="iab-icon">📱</div>
+    <div class="iab-text">
+      <strong>Abra no navegador do celular</strong>
+      <span class="iab-instrucao">Toque nos 3 pontinhos ⋮ e escolha "Abrir no Chrome"</span>
+    </div>
+    <div class="iab-actions">
+      <button class="btn-iab-copiar">Copiar link</button>
+      <button class="btn-iab-fechar">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== BANNER DE INSTALAÇÃO (Android Chrome) ===== -->
+  <div class="install-banner" id="install-banner" hidden>
+    <div class="ib-left">
+      <span class="ib-icon">🛒</span>
+      <div>
+        <strong>Instalar PDV Light</strong>
+        <small>Fica no ícone do celular, sem precisar do navegador</small>
+      </div>
+    </div>
+    <div class="ib-right">
+      <button class="btn-ib-instalar" id="btn-instalar">Instalar</button>
+      <button class="btn-ib-fechar" id="btn-instalar-fechar">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== GUIA iOS (Safari — Adicionar à Tela de Início) ===== -->
+  <div class="ios-guide-overlay" id="ios-guide" hidden>
+    <div class="ios-guide-card">
+      <p class="ios-guide-title">📱 Instalar no iPhone</p>
+      <p class="ios-guide-desc">Para usar o PDV Light como um app, siga estes passos no Safari:</p>
+      <ol class="ios-steps">
+        <li>
+          <span class="ios-step-badge">1</span>
+          <span>Toque no <strong>⬆ Compartilhar</strong> (ícone na barra de baixo)</span>
+        </li>
+        <li>
+          <span class="ios-step-badge">2</span>
+          <span>Role a lista e toque em <strong>"Adicionar à Tela de Início"</strong></span>
+        </li>
+        <li>
+          <span class="ios-step-badge">3</span>
+          <span>Toque em <strong>Adicionar</strong> — pronto! ✅</span>
+        </li>
+      </ol>
+      <button class="btn-ios-ok" id="btn-ios-ok">Entendi</button>
+    </div>
+    <div class="ios-guide-arrow">▼</div>
+  </div>
+
+  <!-- ===== AUTH OVERLAY (PDV Light Pro) ===== -->
+  <div class="auth-overlay" id="auth-overlay">
+    <div class="auth-card">
+      <div class="auth-logo">☁️</div>
+      <h2 class="auth-title">PDV Light Pro</h2>
+      <p class="auth-subtitle">Salve seus dados na nuvem e acesse de qualquer dispositivo</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Entrar</button>
+        <button class="auth-tab" data-tab="register">Criar conta</button>
+      </div>
+
+      <div class="auth-form" id="form-login">
+        <input type="email" id="auth-email" placeholder="E-mail" autocomplete="email">
+        <input type="password" id="auth-senha" placeholder="Senha" autocomplete="current-password">
+        <button class="btn-auth-primary" id="btn-entrar">Entrar</button>
+      </div>
+
+      <div class="auth-form" id="form-register" hidden>
+        <input type="text" id="auth-nome" placeholder="Seu nome" autocomplete="name">
+        <input type="text" id="auth-empresa" placeholder="Nome do estabelecimento" autocomplete="organization">
+        <input type="email" id="auth-reg-email" placeholder="E-mail" autocomplete="email">
+        <input type="password" id="auth-reg-senha" placeholder="Senha (mín. 6 caracteres)" autocomplete="new-password">
+        <button class="btn-auth-primary" id="btn-registrar">Criar conta grátis</button>
+      </div>
+
+      <p class="auth-error" id="auth-error"></p>
+
+      <button class="btn-auth-skip" id="btn-auth-skip">Continuar sem conta →</button>
+    </div>
+  </div>
+
+  <script src="js/vendors.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/config-db.js"></script>
+  <script src="js/produtos-db.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/install.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
+  </script>
+</body>
+</html>
