@@ -72,16 +72,33 @@ const Install = (() => {
     }
 
     el.querySelector('.btn-iab-copiar')?.addEventListener('click', () => {
-      navigator.clipboard?.writeText(window.location.href).then(() =>
-        App?.toast?.('Link copiado! Cole no Chrome ou Safari')
-      ).catch(() =>
-        App?.toast?.('Copie o endereço da barra do navegador e abra no Chrome')
-      );
+      const url = window.location.href;
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(url)
+          .then(() => App?.toast?.('Link copiado! Cole no Chrome'))
+          .catch(() => _mostrarUrlManual(el, url));
+      } else {
+        _mostrarUrlManual(el, url);
+      }
     });
 
     el.querySelector('.btn-iab-fechar')?.addEventListener('click', () => {
       el.setAttribute('hidden', '');
     });
+  }
+
+  function _mostrarUrlManual(el, url) {
+    let inp = el.querySelector('.iab-url-manual');
+    if (!inp) {
+      inp = document.createElement('input');
+      inp.className = 'iab-url-manual';
+      inp.readOnly = true;
+      inp.style.cssText = 'width:100%;margin-top:8px;padding:6px;border:1px solid #f59e0b;border-radius:6px;font-size:12px;background:#fffbeb';
+      el.appendChild(inp);
+    }
+    inp.value = url;
+    inp.select();
+    App?.toast?.('Selecione o link e copie manualmente');
   }
 
   // ── 2. Banner: Android Chrome ─────────────────────────────────
