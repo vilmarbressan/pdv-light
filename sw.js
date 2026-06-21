@@ -4,7 +4,7 @@
  * Atualiza automaticamente quando os arquivos mudam no servidor.
  */
 
-const CACHE = 'pdvlight-v4';   // Incrementar aqui ao publicar nova versão
+const CACHE = 'pdvlight-v5';   // Incrementar aqui ao publicar nova versão
 
 const SHELL = [
   './',

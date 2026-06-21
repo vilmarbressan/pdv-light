@@ -6,6 +6,13 @@
  *  2. Android Chrome → captura beforeinstallprompt e exibe banner próprio
  *  3. iOS Safari      → exibe guia "Adicionar à Tela de Início" após 30s de uso
  */
+// Captura o evento o mais cedo possível, antes do DOMContentLoaded
+let _promptAndroidEarly = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _promptAndroidEarly = e;
+});
+
 const Install = (() => {
   'use strict';
 
@@ -32,7 +39,13 @@ const Install = (() => {
       return;
     }
 
-    // Android Chrome: captura o evento de instalação nativo
+    // Usa evento capturado antes do DOMContentLoaded, se disponível
+    if (_promptAndroidEarly) {
+      _promptAndroid = _promptAndroidEarly;
+      _mostrarBannerAndroid();
+    }
+
+    // Também escuta novos eventos (caso ainda não tenha disparado)
     window.addEventListener('beforeinstallprompt', e => {
       e.preventDefault();
       _promptAndroid = e;
